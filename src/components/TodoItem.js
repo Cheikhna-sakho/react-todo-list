@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { BsPencilSquare } from "react-icons/bs";
-// import { TiDelete } from "react-icons/ti";
+import { TiDelete } from "react-icons/ti";
 import { FcCancel } from "react-icons/fc";
 import { IoTrashBin } from "react-icons/io5";
 import { removeTask, updateTask } from '../api/task.api';
@@ -9,13 +9,11 @@ import { activeClass, disableClass } from '../utils/activeClass';
 import { TaskDataContext } from '../contexts/TaskContext';
 const TodoItem = ({ item }) => {
   const { description = "", completed = "", _id = "" } = item;
-  const [checked,setChecked] = useState(completed);
   const { task, setTask } = TaskDataContext();
   const taskIndex = task.indexOf(item);
   const [upTask, setUpTask] = useState(description);
   const modify = useRef(null);
   const completedTask = () => {
-    setChecked(!checked);
     if (!completed) {
       onUpdateTask({ completed: true })
       return;
@@ -27,18 +25,15 @@ const TodoItem = ({ item }) => {
     try {
       delete task[taskIndex];
       setTask(taskData => [...taskData.filter(todo => todo && todo)]);
-      await removeTask(id);
+      const res = await removeTask(id);
     } catch (error) {
       console.log(error);
     }
   }
   const onUpdateTask = async (data) => {
     try {
-      await updateTask(_id, data);
-      if (data?.description) {
-        task[taskIndex].description = data.description;
-        setTask(taskData => [...taskData.filter(todo => todo && todo)]);
-      }
+      const res = await updateTask(_id, data);
+      
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +45,7 @@ const TodoItem = ({ item }) => {
       <div className="desc-task flex">
         <p className='flex'>
           <span onClick={completedTask}>
-            {checked ? <ImCheckboxChecked color='green' /> : <ImCheckboxUnchecked />}
+            {completed ? <ImCheckboxChecked color='green' /> : <ImCheckboxUnchecked />}
           </span>
           {description}
         </p>
