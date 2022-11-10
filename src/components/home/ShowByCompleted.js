@@ -1,7 +1,7 @@
 import { TaskCompletedDataContext } from '../../contexts/TaskContext';
 
 const ShowByCompleted = () => {
-    const { setTaskCompleted } = TaskCompletedDataContext();
+    const { setTaskCompleted } = TaskCompletedDataContext()
     return (
         <select onChange={(e) => setTaskCompleted(e.target.value)}>
             <option value={"null"}>Tout</option>
