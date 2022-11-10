@@ -1,0 +1,19 @@
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid,
+.grid-col {
+    display: grid;
+}
+
+.grid-col {
+    grid-auto-flow: column;
+}
+
+.center {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,19 @@
+.task-modify {
+    display: none;
+    gap: 5px;
+}
+
+.task-modify.active {
+    display: flex;
+}
+
+.todo-item span {
+    cursor: pointer;
+}
+.desc-task{
+    gap: 5px;
+    justify-content: space-between;
+}
+.desc-task p{
+    gap: 10px;
+}

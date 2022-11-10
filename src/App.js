@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { TaskContextProvider } from './contexts/TaskContext';
+import { UserContextProvider } from './contexts/UserContext';
+import routes from './data/routes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContextProvider>
+      <TaskContextProvider>
+        <Routes>
+          {routes.map((route, i) => (
+            <Route key={i} {...route} />
+          ))}
+        </Routes>
+      </TaskContextProvider>
+    </UserContextProvider>
   );
 }
 

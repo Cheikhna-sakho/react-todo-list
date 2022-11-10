@@ -1,0 +1,7 @@
+.body{
+    background: beige;
+}
+.page{
+    min-height: 100vh;
+    grid-template-rows: max-content 1fr;
+}

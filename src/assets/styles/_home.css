@@ -1,0 +1,98 @@
+.top-home {
+    justify-content: space-between;
+}
+
+.home-content.grid {
+    gap: 2em;
+}
+
+.todo-item {
+    gap: 10px;
+    /* width: max-content; */
+    /* padding: 5px  0;
+    border-bottom: dotted; */
+}
+
+.todo-item>* {
+    padding: 5px 0;
+    border-bottom: dotted;
+
+}
+
+.todo-option {
+    color: white;
+    gap: 10px;
+}
+
+.todo-option>* {
+    padding: 2px 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* text-align: center; */
+    align-items: center;
+    /* gap: px; */
+}
+
+.task {
+    gap: 1.5em;
+    border-left: solid;
+    border-right: solid;
+    padding: 1em;
+}
+
+.filter-box {
+    position: relative;
+    background: rgb(44, 44, 219);
+    border-bottom: none;
+}
+
+.filter-box:hover {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.filter-items {
+    position: absolute;
+    top: 100%;
+    color: black;
+    display: none;
+    min-width: 100%;
+    padding: 5px;
+    gap: 10px;
+    background: inherit;
+    color: inherit;
+    left: 0;
+    /* margin-top: 2px; */
+
+}
+
+.filter-items.active,
+.filter-box:hover .filter-items {
+    display: grid;
+}
+.filter-items p:hover{
+    border-bottom: solid;
+}
+.add-todo {
+    position: relative;
+    background: rgb(33, 205, 33);
+}
+
+.add-todo .active {
+    display: block;
+}
+
+.add-input-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+}
+
+.add-input-box input {
+    width: 100%;
+}
+
+.add-title:hover {
+    border-bottom: solid;
+}
