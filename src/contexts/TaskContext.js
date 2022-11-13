@@ -23,12 +23,12 @@ export const TaskContextProvider = ({ children }) => {
     useEffect(() => {
         getAllTask()
             .then(res => {
-                // console.log(res);
+                
                 setTask(res.data.data);
             })
     }, []);
     useEffect(() => {
-        // !task && setCount(0)
+        
         task && setCount(task.length);
         task && setShowTask(task)
     }, [task]);
@@ -67,7 +67,7 @@ export const TaskContextProvider = ({ children }) => {
             }
         }
         searchTaskByDescription();
-    }, [search]);
+    }, [search,task]);
 
     const data = {
         taskDataContext: { task, setTask, count, showTask, setShowTask },

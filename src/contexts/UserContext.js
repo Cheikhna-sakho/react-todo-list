@@ -13,12 +13,11 @@ export const UserContextProvider = ({ children }) => {
             .catch(error => {
                 console.log(error);
             })
-    }, [token])
+    }, [token,setUser,user])
     const data = {
         userDataContext: { user, setUser },
         tokenDataContext: { token, setToken },
-        // userDataContext: "",
-        // userDataContext: "",
+     
     }
     return (
         <UserContext.Provider value={data}>
@@ -40,7 +39,3 @@ export const UserDataContext = () => {
     const { userDataContext } = UserUseContext();
     return userDataContext;
 }
-// const  = () => {
-//     const {} = UserUseContexter();
-//     return {};
-// }

@@ -14,7 +14,7 @@ const Profil = () => {
     const editForm = useRef(null);
     const onLogout = async () => {
         try {
-            const res = await logout();
+            await logout();
             setToken(null);
             setUser(null);
         } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { updateUser } from '../../api/user.api'
 import { UserDataContext } from '../../contexts/UserContext'
-import { RegisterField } from '../../data/auth'
+
 import { Input } from '../../model/Form'
 import { disableClass } from '../../utils/activeClass'
 
@@ -10,14 +10,14 @@ const EditProfil = ({ refEl }) => {
     const [name, setName] = useState(user?.name);
     const [email, setEmail] = useState(user?.email);
     const [age, setAge] = useState(user?.age);
-    const [password, setPassword] = useState(user?.password);
+    const [password, setPassword] = useState("");
 
     const onSubmit = async (e) => {
         e.preventDefault();
         let data = { name, email, password, age };
         for (const key in data) {
             const obj = data[key];
-            if (obj == "") {
+            if (obj === "") {
                 delete data[key];
             }
         }

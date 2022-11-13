@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { RiImageEditFill, RiImageAddLine } from "react-icons/ri";
+import { RiImageEditFill } from "react-icons/ri";
 import { getAvatar, uploadImage } from "../../api/user.api";
 
 const ProfilCover = () => {
@@ -22,7 +22,7 @@ const ProfilCover = () => {
     return (
         <div className="profil-cover grid">
             <p>
-                {<img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-profile-100-most-used-icons-flaticons-lineal-color-flat-icons.png" />}
+                {<img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-profile-100-most-used-icons-flaticons-lineal-color-flat-icons.png" alt="profil" />}
             </p>
             <p onClick={() => { }}>
                 <label htmlFor="avatar" className="add-img-label grid">

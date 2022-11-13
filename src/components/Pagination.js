@@ -45,7 +45,7 @@ const Pagination = (data, { start = 0, ratio = 4 } = {}) => {
         updateIndexOfPage();
     }, [maxPage]);
 
-    useEffect(() => updatePage(pageIndex - 1), [pageIndex]);
+    useEffect(() => {updatePage(pageIndex - 1)}, [pageIndex]);
 
     useEffect(() => {
         const switchPage = () => {
@@ -54,7 +54,7 @@ const Pagination = (data, { start = 0, ratio = 4 } = {}) => {
             ) : data.slice(page));
         }
         switchPage();
-    }, [data, page, end, ratio])
+    }, [data, page, end, ratio,setShowTask])
 
 
     return { next, back, maxPage, pageIndex, page, SetPageIndex, setPage, end };
@@ -75,7 +75,7 @@ export const PageItem = () => {
                 if (el) {
                     if (currentEl.indexOf(el) !== pageIndex - 1) {
                         if (el.className.includes("active")) {
-                            el.className = el.className.split(" ").filter(cl => cl != "active").join(" ");
+                            el.className = el.className.split(" ").filter(cl => cl !== "active").join(" ");
                         }
                     }
                     else {
@@ -88,7 +88,7 @@ export const PageItem = () => {
         setItemActiveClass();
         task && setShowTask(task?.slice(page, end))
 
-    }, [page]);
+    }, [page,task,end,setShowTask]);
 
     return (
         <div className='pagination flex'>
