@@ -4,9 +4,11 @@ import { getAllTask, getTaskByComplted } from "../api/task.api";
 const TaskContext = createContext(null);
 export const TaskContextProvider = ({ children }) => {
     const [task, setTask] = useState(null);
+    const [showTask, setShowTask] = useState(null);
     const [taskCompleted, setTaskCompleted] = useState(null);
     const [count, setCount] = useState(0);
     const [search, setSearch] = useState(null);
+
     const filterByDate = () => {
         const dataByDate = task?.sort((a, b) => (new Date(a?.createdAt).getTime()) > (new Date(b?.createdAt).getTime()) ? -1 : 1);
         setTask([...dataByDate]);
@@ -21,20 +23,23 @@ export const TaskContextProvider = ({ children }) => {
     useEffect(() => {
         getAllTask()
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 setTask(res.data.data);
             })
     }, []);
     useEffect(() => {
+        // !task && setCount(0)
         task && setCount(task.length);
-    }, [task])
+        task && setShowTask(task)
+    }, [task]);
+
     useEffect(() => {
-        (async () => {
+        const filterTaskByCompleted = async () => {
             try {
                 if (taskCompleted != null && taskCompleted !== "null") {
                     const res = await getTaskByComplted(taskCompleted);
+                    console.log(res.data);
                     setTask(res.data.data);
-
                 } else {
                     const res = await getAllTask();
                     setTask(res.data.data);
@@ -43,29 +48,29 @@ export const TaskContextProvider = ({ children }) => {
                 console.log(error);
             }
 
-        })()
-
+        }
+        filterTaskByCompleted();
     }, [taskCompleted]);
     useEffect(() => {
-        (async () => {
+        const searchTaskByDescription = async () => {
             try {
                 if (search) {
-                    setTask(data => data.filter(todo => {
+                    setShowTask(task.filter(todo => {
                         return todo?.description.toLowerCase().includes(search.toLowerCase());
                     }));
 
                 } else if (search === "") {
-                    const res = await getAllTask();
-                    setTask(res.data.data);
+                    setShowTask(task);
                 }
             } catch (error) {
                 console.log(error);
             }
-
-        })()
+        }
+        searchTaskByDescription();
     }, [search]);
+
     const data = {
-        taskDataContext: { task, setTask,count },
+        taskDataContext: { task, setTask, count, showTask, setShowTask },
         taskCompletedDataContext: { taskCompleted, setTaskCompleted },
         searchDataContext: { search, setSearch },
         filterDataContext: { filterByDate, filterByDesc }

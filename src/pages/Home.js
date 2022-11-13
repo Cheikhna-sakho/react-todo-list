@@ -3,24 +3,31 @@ import Page from '../template/Page'
 import TodoItem from '../components/TodoItem';
 import HomeTop from '../components/home/HomeTop';
 import { TaskDataContext } from '../contexts/TaskContext';
-import Pagination from '../components/Pagination';
+import { PageItem } from '../components/Pagination';
+// import { useState } from 'react';
+import { UserDataContext } from '../contexts/UserContext';
+import Register from './Register';
 const Home = () => {
-  const { task } = TaskDataContext();
-
+  const { task,showTask,setShowTask } = TaskDataContext();
+  const { user } = UserDataContext();
+  // const [taskShow,setTaskShow] = useState(null);
+  // console.log(taskShow);
   return (
-    <Page>
-      <div className="home-content grid">
-        <HomeTop />
-        <ul className="task grid">
-          {task && task.map((item) => (
-            <TodoItem key={item?._id} item={item} />
-          ))}
-        </ul>
-        <div >
-            <Pagination limit={10}/>
+    user ? (
+      <Page>
+        <div className="home-content grid">
+          <HomeTop />
+          <ul className="task grid">
+            {showTask && showTask.map((item) => (
+              <TodoItem key={item?._id} item={item} />
+            ))}
+          </ul>
+          <div >
+            <PageItem/>
+          </div>
         </div>
-      </div>
-    </Page>
+      </Page>
+    ) : <Register />
   )
 }
 

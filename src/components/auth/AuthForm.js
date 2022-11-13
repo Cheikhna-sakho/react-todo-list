@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-const AuthForm = ({ data, onSubmited }) => {
+const AuthForm = ({title, data, onSubmited }) => {
+    const altSubmit = title?.toLowerCase() === "inscription" ? {title:"Connection",to:"/login"} : {title:"inscription",to:"/register"};
     const onSubmit = (e) => {
         e.preventDefault();
         onSubmited();
@@ -18,7 +20,8 @@ const AuthForm = ({ data, onSubmited }) => {
                     <input {...champ} />
                 </p>
             ))}
-            <input type="submit" />
+            <input type="submit"  value={title}/>
+            <Link to={altSubmit.to}>{altSubmit.title}</Link>
         </form>
     )
 }

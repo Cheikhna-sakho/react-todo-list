@@ -14,7 +14,7 @@ const HomeTop = () => {
         <div className="top-home grid-col">
             <h2>Ma Liste des Taches</h2>
             <div className="search-bar flex">
-                <span><FcSearch /></span> <input type="search" onChange={e => setSearch(e.target.value)} placeholder='chercher une tache' />
+                <span><FcSearch /></span> <input type="search" onChange={e =>{ setSearch(e.target.value);}} placeholder='chercher une tache' />
             </div>
             <ShowByCompleted />
             <div className="todo-option flex">

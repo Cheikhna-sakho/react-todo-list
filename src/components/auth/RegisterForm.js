@@ -26,7 +26,7 @@ const RegisterForm = () => {
             })
     }
     return (
-        <AuthForm data={champs} onSubmited={onSubmited} />
+        <AuthForm title={"Inscription"} data={champs} onSubmited={onSubmited} />
     )
 }
 

@@ -9,18 +9,20 @@ import { activeClass, disableClass } from '../utils/activeClass';
 import { TaskDataContext } from '../contexts/TaskContext';
 const TodoItem = ({ item }) => {
   const { description = "", completed = "", _id = "" } = item;
-  const [checked,setChecked] = useState(completed);
+  const [checked, setChecked] = useState(completed);
   const { task, setTask } = TaskDataContext();
   const taskIndex = task.indexOf(item);
   const [upTask, setUpTask] = useState(description);
   const modify = useRef(null);
-  const completedTask = () => {
-    setChecked(!checked);
-    if (!completed) {
-      onUpdateTask({ completed: true })
+  const completedTask = async () => {
+
+      if (!completed) {
+        await onUpdateTask({ completed: true })
+      } else {
+        await onUpdateTask({ completed: false });
+      }
+      setChecked(!checked);
       return;
-    }
-    return onUpdateTask({ completed: false });
   }
   const deleteTask = async (id) => {
 
@@ -34,11 +36,9 @@ const TodoItem = ({ item }) => {
   }
   const onUpdateTask = async (data) => {
     try {
-      await updateTask(_id, data);
-      if (data?.description) {
-        task[taskIndex].description = data.description;
-        setTask(taskData => [...taskData.filter(todo => todo && todo)]);
-      }
+      const res = await updateTask(_id, data);
+      task[taskIndex] = res.data.data;
+      setTask(taskData => [...taskData.filter(todo => todo && todo)]);
     } catch (error) {
       console.log(error);
     }
