@@ -1,0 +1,18 @@
+.edit-form {
+    box-shadow: 1px 1px 5px;
+    padding: 10px;
+    gap: 5px;
+}
+
+.edit-box {
+    visibility: hidden;
+}
+
+.edit-box.active {
+    visibility: visible;
+}
+
+.user {
+    gap: 2%;
+    align-items: center;
+}

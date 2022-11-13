@@ -6,7 +6,7 @@ export const login = (data) => API.post("/user/login", data);
 export const logout = () => API.post("/user/logout");
 export const logged = () => API.get("/user/me");
 export const deleteUser = () => API.delete("/user/me");
-export const updateUser = () => API.put("/user/me");
+export const updateUser = (data) => API.put("/user/me",data);
 // export const e = () => API("/user/")
 // export const e = () => API("/user/")
 

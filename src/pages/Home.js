@@ -4,14 +4,13 @@ import TodoItem from '../components/TodoItem';
 import HomeTop from '../components/home/HomeTop';
 import { TaskDataContext } from '../contexts/TaskContext';
 import { PageItem } from '../components/Pagination';
-// import { useState } from 'react';
+
 import { UserDataContext } from '../contexts/UserContext';
 import Register from './Register';
 const Home = () => {
-  const { task,showTask,setShowTask } = TaskDataContext();
+  const { showTask } = TaskDataContext();
   const { user } = UserDataContext();
-  // const [taskShow,setTaskShow] = useState(null);
-  // console.log(taskShow);
+
   return (
     user ? (
       <Page>
@@ -21,6 +20,7 @@ const Home = () => {
             {showTask && showTask.map((item) => (
               <TodoItem key={item?._id} item={item} />
             ))}
+            {showTask?.length == 0  && <p style={{textAlign:"center"}}>Aucune tache</p>}
           </ul>
           <div >
             <PageItem/>
