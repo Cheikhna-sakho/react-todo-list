@@ -1,14 +1,19 @@
-import API from "./todolist.api";
+import axios from "axios";
+import API, { FormDataAPI } from "./todolist.api";
 
-export const createUser = (data) => API.post("/user/register",data);
-export const login = (data) => API.post("/user/login",data);
-export const logout = () => API("/user/logout");
-export const logged = () => API("/user/me");
+export const createUser = (data) => API.post("/user/register", data);
+export const login = (data) => API.post("/user/login", data);
+export const logout = () => API.post("/user/logout");
+export const logged = () => API.get("/user/me");
+export const deleteUser = () => API.delete("/user/me");
+export const updateUser = () => API.put("/user/me");
 // export const e = () => API("/user/")
 // export const e = () => API("/user/")
 
+const token = localStorage.getItem("token")
 
-
-export const uploadImage = (avatar) => API("/user/me/avatar",avatar);
-export const getAvatar = (avatar) => API("/user/me/avatar",avatar);
+export const uploadImage = (avatar) => FormDataAPI.post("user/me/avatar",avatar);
+// 'Authorization': 'Bearer '+token,
+export const getAvatar = () => API.get(`/user/me/avatar`);
+export const deleteAvatar = () => API.delete("/user/me/avatar")
 // export const e = () => API("/user/")

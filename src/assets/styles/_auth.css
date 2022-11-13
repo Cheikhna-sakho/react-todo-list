@@ -1,0 +1,9 @@
+.auth-form {
+    text-align: center;
+    padding: 10px;
+    gap: 10px;
+    display: grid;
+    margin: auto;
+    width: max-content;
+    box-shadow: 1px 1px 10px;
+}

@@ -8,7 +8,7 @@ const AuthForm = ({title, data, onSubmited }) => {
         onSubmited();
     }
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="auth-form">
             {data.map((champ, i) => (
                 <p key={i}>
                     {champ?.label && (

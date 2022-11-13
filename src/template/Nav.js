@@ -10,8 +10,7 @@ const Nav = () => {
     <nav>
       {user && (
         <>
-          <Profil user={user} />
-          <p style={{ padding: "10px", fontSize: "1.3em", background: "blue", color: "white", width: "max-content" }}>Me deconnecter</p>
+          <Profil />
         </>
       )
       }

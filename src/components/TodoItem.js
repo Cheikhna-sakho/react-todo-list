@@ -24,12 +24,12 @@ const TodoItem = ({ item }) => {
       setChecked(!checked);
       return;
   }
-  const deleteTask = async (id) => {
+  const deleteTask = async () => {
 
     try {
+      await removeTask(_id);
       delete task[taskIndex];
       setTask(taskData => [...taskData.filter(todo => todo && todo)]);
-      await removeTask(id);
     } catch (error) {
       console.log(error);
     }
