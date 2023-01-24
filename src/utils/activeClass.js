@@ -9,7 +9,7 @@ export const activeClass = (ref) => {
 }
 export const disableClass = (ref) => {
     const refClass = ref.current.className;
-    const newCl = refClass.split(" ").filter(cl => cl != "active").join(" ");
+    const newCl = refClass.split(" ").filter(cl => cl !== "active").join(" ");
     ref.current.className = newCl; 
     return;
 }

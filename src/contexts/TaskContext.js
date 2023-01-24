@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllTask, getTaskByComplted } from "../api/task.api";
+import { TokenDataContext } from "./UserContext";
 
 const TaskContext = createContext(null);
 export const TaskContextProvider = ({ children }) => {
@@ -8,6 +9,8 @@ export const TaskContextProvider = ({ children }) => {
     const [taskCompleted, setTaskCompleted] = useState(null);
     const [count, setCount] = useState(0);
     const [search, setSearch] = useState(null);
+    //ajout hors temps donner
+    const { token } = TokenDataContext();
 
     const filterByDate = () => {
         const dataByDate = task?.sort((a, b) => (new Date(a?.createdAt).getTime()) > (new Date(b?.createdAt).getTime()) ? -1 : 1);
@@ -21,16 +24,17 @@ export const TaskContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        getAllTask()
+        //ajout de token pour le fetch data
+        token && getAllTask()
             .then(res => {
-                
+
                 setTask(res.data.data);
             })
-    }, []);
+    }, [token]);
     useEffect(() => {
-        
+
         task && setCount(task.length);
-        task && setShowTask(task)
+        // task && setShowTask(task)
     }, [task]);
 
     useEffect(() => {
@@ -67,7 +71,7 @@ export const TaskContextProvider = ({ children }) => {
             }
         }
         searchTaskByDescription();
-    }, [search,task]);
+    }, [search, task]);
 
     const data = {
         taskDataContext: { task, setTask, count, showTask, setShowTask },

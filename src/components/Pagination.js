@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { TaskDataContext } from '../contexts/TaskContext';
 
@@ -9,7 +9,10 @@ const Pagination = (data, { start = 0, ratio = 4 } = {}) => {
     const [maxPage, setMaxPage] = useState(page);
     const [end, setEnd] = useState(null);
 
-    const updatePage = (i) => setPage(i * ratio);
+    const updatePage = useCallback((i) => {
+        setPage(i * ratio)
+    }, [ratio]);
+    // };
     const next = () => {
         if (count > page + ratio) {
             SetPageIndex(pageIndex + 1)
@@ -28,11 +31,11 @@ const Pagination = (data, { start = 0, ratio = 4 } = {}) => {
             return len > endVal ? endVal - len : null;
         }
         setEnd(lastValue());
-    }, [data, ratio, page,count])
-    useEffect(()=>{
+    }, [data, ratio, page, count])
+    useEffect(() => {
         !count && setMaxPage(1);
         count && setMaxPage(Math.ceil(count / ratio))
-    },[count,ratio])
+    }, [count, ratio])
     useEffect(() => {
         const updateIndexOfPage = () => {
             if (maxPage > 0) {
@@ -45,7 +48,7 @@ const Pagination = (data, { start = 0, ratio = 4 } = {}) => {
         updateIndexOfPage();
     }, [maxPage]);
 
-    useEffect(() => {updatePage(pageIndex - 1)}, [pageIndex]);
+    useEffect(() => { updatePage(pageIndex - 1) }, [pageIndex, updatePage]);
 
     useEffect(() => {
         const switchPage = () => {
@@ -57,15 +60,15 @@ const Pagination = (data, { start = 0, ratio = 4 } = {}) => {
     }, [data, page, end, ratio,setShowTask])
 
 
-    return { next, back, maxPage, pageIndex, page, SetPageIndex, setPage, end };
+    return { next, back, maxPage, pageIndex, SetPageIndex };
 }
 
 
 
 export const PageItem = () => {
-    const { task, setShowTask } = TaskDataContext();
+    const { task } = TaskDataContext();
     const limit = 10;
-    const { next, back, maxPage, pageIndex, page, SetPageIndex, end } = Pagination(task, { ratio: limit });
+    const { next, back, maxPage, pageIndex, SetPageIndex } = Pagination(task, { ratio: limit });
     const pageItem = useRef([]);
 
     useEffect(() => {
@@ -86,9 +89,7 @@ export const PageItem = () => {
             });
         }
         setItemActiveClass();
-        task && setShowTask(task?.slice(page, end))
-
-    }, [page,task,end,setShowTask]);
+    }, [pageIndex]);
 
     return (
         <div className='pagination flex'>

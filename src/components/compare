@@ -1,0 +1,105 @@
+const Pagination = (data, { start = 0, ratio = 4 } = {}) => {
+    const [indexStart, setIndexStart] = React.useState(start);
+    const { count, setShowTask } = TaskDataContext();
+
+    const [pageIndex, SetPageIndex] = React.useState(1);
+    const [maxPage, setMaxPage] = useState(1);
+    const [end, setEnd] = React.useState(null);
+    const updateIndexStart = (i) => setIndexStart(i * ratio);
+    React.useEffect(() => {
+        const lastValue = () => {
+            const endVal = (indexStart + ratio);
+            const len = data && count;
+            return len > endVal ? endVal - len : null;
+        }
+        setEnd(lastValue());
+    }, [data, ratio, indexStart])
+    React.useEffect(() => {
+        if (maxPage > 0) {
+            setIndexStart(0);
+            SetPageIndex(maxPage / maxPage);
+        } else {
+            SetPageIndex(0);
+        }
+        console.log();
+    }, [data, maxPage])
+    React.useEffect(() => {
+        data && setMaxPage(Math.ceil(count / ratio))
+        data && setShowTask(end ? (
+            data.slice(indexStart, end)
+        ) : data.slice(indexStart));
+    }, [data, indexStart, end, ratio])
+
+    const next = () => {
+        if (count >= indexStart + ratio) {
+            SetPageIndex(pageIndex + 1)
+            setIndexStart(indexStart + ratio)
+        }
+    }
+    const back = () => {
+        if (indexStart - ratio >= 0) {
+            SetPageIndex(pageIndex - 1)
+            setIndexStart(indexStart - ratio)
+        }
+    }
+    return { next, back,updateIndexStart, maxPage, pageIndex };
+}
+export default Pagination;
+
+const Paginationn = (data, { start = 0, ratio = 4 } = {}) => {
+    const { count, setShowTask } = TaskDataContext();
+    const [page, setPage] = useState(start);
+    const [pageIndex, SetPageIndex] = useState(1);
+    const [maxPage, setMaxPage] = useState(page);
+    const [end, setEnd] = useState(null);
+
+    const updatePage = (i) => setPage(i * ratio);
+    const next = () => {
+        if (count > page + ratio) {
+            SetPageIndex(pageIndex + 1)
+        }
+    }
+    const back = () => {
+        if (page - ratio >= 0) {
+            SetPageIndex(pageIndex - 1)
+        }
+    }
+
+    useEffect(() => {
+        const lastValue = () => {
+            const endVal = (page + ratio);
+            const len = data && count;
+            return len > endVal ? endVal - len : null;
+        }
+        setEnd(lastValue());
+    }, [data, ratio, page, count])
+    useEffect(() => {
+        !count && setMaxPage(1);
+        count && setMaxPage(Math.ceil(count / ratio))
+    }, [count, ratio])
+    useEffect(() => {
+        const updateIndexOfPage = () => {
+            if (maxPage > 0) {
+                setPage(0);
+                SetPageIndex(maxPage / maxPage);
+            } else {
+                SetPageIndex(1);
+            }
+        }
+        updateIndexOfPage();
+    }, [maxPage]);
+
+    useEffect(() => { updatePage(pageIndex - 1) }, [pageIndex]);
+
+    useEffect(() => {
+        const switchPage = () => {
+            data && setShowTask(end ? (
+                data.slice(page, end)
+            ) : data.slice(page));
+        }
+        switchPage();
+    }, [data, page, end, ratio])
+
+
+    return { next, back, maxPage, pageIndex, page, SetPageIndex, setPage, end };
+}

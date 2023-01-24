@@ -16,13 +16,3 @@ export class Option {
         this.value = value;
     }
 }
-export class select {
-    constructor() {
-
-    }
-}
-// export class Input{
-//     constructor(){
-
-//     }
-// }

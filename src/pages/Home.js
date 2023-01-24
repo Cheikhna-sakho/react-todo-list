@@ -10,7 +10,7 @@ import Register from './Register';
 const Home = () => {
   const { showTask } = TaskDataContext();
   const { user } = UserDataContext();
-
+  console.log(showTask);
   return (
     user ? (
       <Page>
@@ -20,10 +20,10 @@ const Home = () => {
             {showTask && showTask.map((item) => (
               <TodoItem key={item?._id} item={item} />
             ))}
-            {showTask?.length === 0  && <p style={{textAlign:"center"}}>Aucune tache</p>}
+            {showTask?.length === 0 && <p style={{ textAlign: "center" }}>Aucune tache</p>}
           </ul>
           <div >
-            <PageItem/>
+            <PageItem />
           </div>
         </div>
       </Page>
